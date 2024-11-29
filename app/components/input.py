@@ -24,6 +24,8 @@ class Input(Component):
         self._window.dom.create_element(f'<label for="{self.__name}">{self.__data["label"]}:</label>', ".input-container")
         input = self._window.dom.create_element(f'<input name="{self.__name}" type="{self.__data["type"] or "text"}" value="{self.__data["value"] or ""}"/>', ".input-container")
 
+        input.events.input._should_lock = True
+
         if self.__name == Input.focus:
             input.focus()
 
@@ -34,5 +36,4 @@ class Input(Component):
             selected_event += func
             
             setattr(input.events, event_name, selected_event)
-            #input.events.input += func
 

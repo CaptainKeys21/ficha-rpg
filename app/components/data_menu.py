@@ -10,7 +10,7 @@ class DataMenu(Component):
         self._window = window
         self.__data = data
         self.__inputs: dict[str, Input] = dict()
-        self.__data.subscribe(self.__change_input_rules)
+        self.__data.subscribe(self.__update_inputs)
         self._render()
 
         #self.__data.subscribe(self.__on_data_change)
@@ -31,14 +31,11 @@ class DataMenu(Component):
         for key, data in vars(self.__data).items():
             input = Input(self._window, key, data, "#data-menu")
             input.add_listener('input', self.__on_input)
-            input.add_listener('focus', self.__on_focus)
+            input.add_listener('focusout', self.__on_focus)
 
             self.__inputs[key] = input
 
         btn = self._window.dom.create_element('<button id="new-field">Novo Campo</button>', '#data-menu')
-
-    def __change_input_rules(self, old, new):
-        print(old, new)
 
     def __on_input(self, evt):
         name = evt['target']['name']
@@ -51,7 +48,3 @@ class DataMenu(Component):
 
     def __on_focus(self, evt):
         Input.focus = evt['target']['name']
-
-    def rerender(self):
-        self.__del__()
-        self._render()
