@@ -2,6 +2,9 @@ from webview import Window
 
 from app.components import Component
 from app.components.input import Input
+from app.components.fieldset import Fieldset
+from app.components.perks import Perks
+from app.components.read_only import Readonly
 from app.utils.app_data import AppData
 
 class DataMenu(Component):
@@ -9,7 +12,7 @@ class DataMenu(Component):
     def __init__(self, window: Window, data: AppData) -> None:
         self._window = window
         self.__data = data
-        self.__inputs: dict[str, Input] = dict()
+        self.__inputs: dict[str, Input|Readonly|Perks] = dict()
         self.__data.subscribe(self.__update_inputs)
         self._render()
 
@@ -28,14 +31,19 @@ class DataMenu(Component):
         self.__del__()
         self._window.dom.create_element('<div id="data-menu"></div>', '#app')
 
-        for key, data in vars(self.__data).items():
-            input = Input(self._window, key, data, "#data-menu")
-            input.add_listener('input', self.__on_input)
-            input.add_listener('focusout', self.__on_focus)
+        self.__inputs["name"] = Input(self._window, "name", self.__data["name"], "data-menu")
+        self.__inputs["biggerPoints"] = Readonly(self._window, "biggerPoints", self.__data["biggerPoints"], "data-menu")
+        self.__inputs["smallerPoints"] = Readonly(self._window, "smallerPoints", self.__data["smallerPoints"], "data-menu")
+        perk_group = Fieldset(self._window, "perks", self.__data["perks"], "#data-menu")
 
-            self.__inputs[key] = input
+        for key, data in self.__data["perks"]["value"].items():
+            self.__inputs[key] = Perks(self._window, key, data, perk_group.ida)
 
-        btn = self._window.dom.create_element('<button id="new-field">Novo Campo</button>', '#data-menu')
+        for input in self.__inputs.values():
+            if isinstance(input, Input):
+                input.add_listener('input', self.__on_input)
+                input.add_listener('focusout', self.__on_focus)
+
 
     def __on_input(self, evt):
         name = evt['target']['name']

@@ -20,7 +20,7 @@ class FileMenu(Component):
         for file in self.__files:
             self._window.dom.create_element(f'<li class="list-item"><button id="{file}">{file[:-5]}</button></li>', '#file-list')
 
-        #self._window.dom.create_element('<button id="new-file">Nova Ficha</button>', '#file-menu')
+        self._window.dom.create_element('<button id="new-file">Nova Ficha</button>', '#file-menu')
         
     def add_list_item_events(self, func: FunctionType):
         buttons = self._window.dom.get_elements('.list-item button')
