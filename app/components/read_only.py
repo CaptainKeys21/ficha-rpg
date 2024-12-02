@@ -21,5 +21,10 @@ class Readonly(Component):
 
     def _render(self):
         self._window.dom.create_element(f'<div id="readonly-{self.__name}" class="readonly-container"></div>', self.__parent)
-        self._window.dom.create_element(f'<span>{self.__data["label"]}: {self.__data["value"]}</span>', ".readonly-container")
+        self._window.dom.create_element(f'<span>{self.__data["label"]}: {self.__data["value"]}</span>', f"#readonly-{self.__name}")
 
+    def update(self, data):
+        self.__data = data
+        span = self._window.dom.get_element(f"#readonly-{self.__name}")
+        if span:
+            span.text = f'{self.__data["label"]}: {self.__data["value"]}'

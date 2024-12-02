@@ -1,13 +1,11 @@
 from typing import Any, Callable
 
-
 class AppData:
     __observers: list[Callable[[dict, dict], None]] = []
     def __init__(self, initial_data: dict = {}) -> None:
         for k, v in initial_data.items():
             self.__dict__[k] = v
 
-        print(self.__dict__)
     def __setattr__(self, name: str, value: Any) -> None:
         self.__dict__[name] = value
 

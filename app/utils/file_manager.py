@@ -43,3 +43,9 @@ class FileManager:
 
         with open(os.path.join(workdir, filename), "w") as file:
             json.dump(data, file)
+
+        workdir = self.__get_work_dir()
+        if not os.path.exists(workdir):
+            os.makedirs(workdir, exist_ok=True)
+
+        self.files = [file for file in os.listdir(workdir) if os.path.isfile(os.path.join(workdir, file))]

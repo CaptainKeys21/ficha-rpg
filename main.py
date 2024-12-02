@@ -5,4 +5,4 @@ import webview
 
 if __name__ == '__main__':
     window = webview.create_window('Ficha RPG')
-    webview.start(App, window, debug=True)
+    webview.start(App, window)

@@ -15,7 +15,7 @@ class FileMenu(Component):
             menu.remove()
 
     def _render(self):
-        self._window.dom.create_element('<div id="file-menu"><ul id="file-list"></ul></div>', '#app')
+        self._window.dom.create_element('<div id="file-menu"><h1>Fichas de RPG</h1><h3>Selecione uma ficha</h3><ul id="file-list"></ul></div>', '#app')
 
         for file in self.__files:
             self._window.dom.create_element(f'<li class="list-item"><button id="{file}">{file[:-5]}</button></li>', '#file-list')

@@ -14,11 +14,11 @@ TEMPLATE_SHEET = {
         },
     },
     "smallerPoints": {
-        "value": 25,
+        "value": 45,
         "label": "Pontos Menores",
         "type": "read-only",
         "rules": {
-            "max": 25,
+            "max": 45,
         },
     },
     "perks": {
@@ -77,14 +77,14 @@ TEMPLATE_SHEET = {
                     },
                     "fisica": {
                         "value": 0,
-                        "type": "Física",
-                        "label": "História Moderna",
+                        "type": "number",
+                        "label": "Física",
                         "rules": [{"source": ["smallerPoints"]}, {"max": "ciencias"}]
                     },
                     "matematica": {
                         "value": 0,
-                        "type": "Matemática",
-                        "label": "História Moderna",
+                        "type": "number",
+                        "label": "Matemática",
                         "rules": [{"source": ["smallerPoints"]}, {"max": "ciencias"}]
                     },
                 },
